@@ -1,11 +1,11 @@
-import Home from './components/Home.vue'
-import Category from './components/Category.vue'
-import Cart from './components/Cart.vue'
-import GoodsDetail from './components/GoodsDetail.vue'
-import SearchPage from './components/SearchPage.vue'
-import Mine from './components/Mine.vue'
-import Login from './components/Login.vue'
-import Reg from './components/Reg.vue'
+import Home from './components/Home.vue'  // 首页
+import Category from './components/Category.vue' // 分类
+import Cart from './components/Cart.vue' // 购物车
+import GoodsDetail from './components/GoodsDetail.vue' // 商品
+import SearchPage from './components/SearchPage.vue' // 查询
+import Mine from './components/Mine.vue' // 我的
+import Login from './components/Login.vue' //登录
+import Reg from './components/Reg.vue' //注册
 export default [{
     path: '/home',
     component: Home
