@@ -75,7 +75,7 @@ node server.js
 ## 项目效果图
 
 
-![](http://i.imgur.com/hc4Kdcv.png)
+<!-- ![](http://i.imgur.com/hc4Kdcv.png)
 
 ![](http://i.imgur.com/e1dli1Y.png)
 
@@ -87,8 +87,6 @@ node server.js
 
 ![](http://i.imgur.com/8GpE1qc.png)
 
-![](http://i.imgur.com/sIfHd0z.png)
+![](http://i.imgur.com/sIfHd0z.png) -->
 
-
-....未完待续 QQ交流群:526450553
 
