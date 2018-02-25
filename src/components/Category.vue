@@ -8,7 +8,7 @@
 	import {myMoveScroll} from '../assets/js/category.js'
 	import CategoryHeadView from './CategoryHead.vue';
 	import CategoryMainView from './CategoryMain.vue';
-	export default{
+	export default {
 		components:{
 			CategoryHeadView,
 			CategoryMainView

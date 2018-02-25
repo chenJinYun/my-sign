@@ -1,4 +1,4 @@
-<template>
+  <template>
 	<div class="goods_detail">
 		<header class="top_bar">
             <a onclick="window.history.go(-1)" class="icon_back"></a>
@@ -8,7 +8,7 @@
         <main class="detail_box">
             <section class="banner_box">
                 <ul class="banner_child_box">
-                    <li class="banner_item" v-for="item in goodsImages" :key="item">
+                    <li class="banner_item" v-for="(item,idx) in goodsImages" :key="idx">
                         <img v-lazy="item.image_url" alt="" class="banner_pic">
                     </li>
                 
@@ -66,18 +66,20 @@
             </div>
         </footer>
 	</div>
-</template>
+  </template>
+
 <script>
-   export default{
-        mounted(){
-            this.fetchData(this.$route.params.id);
-        },
+   export default {
+       
         data(){
             return {
                 cateGoodsAllData:[],
                 goodsImages:[],
                 goodsData:[],
             }
+        },
+         created(){
+            this.fetchData(this.$route.params.id);
         },
         watch:{
             $route(to){
@@ -98,6 +100,7 @@
                         mId: id
                     }
                 }).then((res)=>{
+                    console.log(res)
                     _this.goodsImages = res.data[0];
                     _this.goodsData = res.data[1];
 

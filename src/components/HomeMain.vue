@@ -12,7 +12,7 @@
                     <div class="product_content">
                         <ul>
                         
-                            <li class="product_skill_item" v-for="item in homeDatas">
+                            <li class="product_skill_item" v-for="(item,idx) in homeDatas" :key="idx">
                                 <router-link :to="'/detail/'+item.product_id" class="product_skill_item_link">
                                     <img v-lazy="item.product_img_url" alt="" class="product_skill_item_cion lazy-img-fadein">
                                     <p class="nowprice">
@@ -38,7 +38,7 @@
                         </div>
                         <div class="share_quality_left not_eng_box">
                             <ul>
-                                <li class="not_eng_item" v-for="item in mainDatas">
+                                <li class="not_eng_item" v-for="(item,idx) in mainDatas" :key="idx">
                                     <router-link  class="not_eng_link" :to="'/detail/'+item.product_id">
                                         <img v-lazy="item.product_img_url" alt="" class="not_eng_pic lazy-img-fadein">
                                         <div class="not_eng_info">
@@ -59,7 +59,7 @@
 	</div>
 </template>
 <script>
-    export default{
+    export default {
         data(){
             return {
                 homeDatas : [],

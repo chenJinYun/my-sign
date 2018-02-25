@@ -13,7 +13,7 @@
 	</div>
 </template>
 <script>
-    export default{
+    export default {
         methods:{
             goSearch(event){
                 this.$router.push('/search');

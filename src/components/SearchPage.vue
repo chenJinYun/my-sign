@@ -7,7 +7,7 @@
 </template>
 <script>
 	import SearchMainView from './SearchMain.vue';
-	export default{
+	export default {
 		components:{
 			SearchMainView
 		}

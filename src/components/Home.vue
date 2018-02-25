@@ -19,7 +19,7 @@
     import HomeNavView from './HomeNav.vue';
     import HomeMainView from './HomeMain.vue';
     import {bindEvent,scrollPic} from '../assets/js/index.js'
-    export default{
+    export default {
        components:{
         HomeHeaderView,
         HomeBannerView,

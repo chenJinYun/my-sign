@@ -9,7 +9,7 @@
 	            <div class="category_detail">
 	                <h3 class="category_n">Hot Category Goods</h3>
 	                <ul>
-	                    <li class="category_detail_item" v-for="item in cateGoodsData">
+	                    <li class="category_detail_item" v-for="(item,idx) in cateGoodsData" :key="idx">
 	                        <router-link :to="'/detail/'+item.product_id"class="category_detail_item_link">
 	                            <img v-lazy="item.product_img_url" alt="" class="category_detail_item_pic">
 	                            <p class="category_detail_item_name">{{item.product_name}}</p>
@@ -22,7 +22,7 @@
 	</div>
 </template>
 <script>
-export default{
+export default {
 		mounted(){
 			this.fetchData(this.$route.params.id);
 		},

@@ -4,7 +4,7 @@
 		        <span>登录后可同步电脑与手机购物车中的商品</span>
 		        <a href="#" class="login">登录</a>
 		    </div>
-		    <div class="cart_content clearfix" v-for="item in cartDatas">
+		    <div class="cart_content clearfix" v-for="(item,idx) in cartDatas" :key="idx">
 		        <div class="cart_shop clearfix">
 		            <div class="cart_check_box">
 		                <div class="check_box">
@@ -60,7 +60,7 @@
 		</main>
 </template>
 <script>
-	export default{
+	export default {
 		data(){
 			return{
 				cartDatas:[],

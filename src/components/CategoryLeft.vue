@@ -2,7 +2,7 @@
 	<div id="cate_left">
 		 <div class="category_left">
 	            <ul class="childbox">
-	                <li class="" v-for="item in leftDatas">
+	                <li class="" v-for="(item,idx) in leftDatas" :key="idx">
 	                	<router-link :to="'/catgory/'+item.category_id">
 	                	{{item.category_name}}
 	                	</router-link>
@@ -13,7 +13,7 @@
 	</div>
 </template>
 <script>
-export default{
+export default {
 	data(){
 		return{
 			leftDatas:[]

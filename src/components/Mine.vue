@@ -7,7 +7,7 @@
 <script>
 	import MineHeaderView from './MineHeader.vue';
 	import MineMainView from './MineMain.vue';
-	export default{
+	export default {
 		components:{
 			MineMainView,
 			MineHeaderView

@@ -9,7 +9,7 @@
 <script>
 	import CategoryLeftView from './CategoryLeft.vue';
 	import CategoryRightView from './CategoryRight.vue';
-	export default{
+	export default {
 		components:{
 			CategoryLeftView,
 			CategoryRightView

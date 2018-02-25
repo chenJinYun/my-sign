@@ -30,7 +30,7 @@
 	    </section>
 		<main class="main_goods_box">
 	        <ul>
-	            <li class="goods_item" v-for="item in mDatas" :key="item">
+	            <li class="goods_item" v-for="(item,idx) in mDatas" :key="idx">
 	                <router-link :to="'/detail/'+item.product_id" class="goods_item_link">
 	                    <img v-lazy="item.product_img_url" alt="" class="goods_item_pic">
 	                    <div class="goods_right">
@@ -57,7 +57,7 @@
 	</div>
 </template>
 <script>
-	export default{
+	export default {
 		data(){
 			return {
 				keyword:'',
