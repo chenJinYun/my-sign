@@ -24,7 +24,7 @@
                 <div class="product_left">
                     <p class="p_name">{{goodsData[0].product_name}}</p>
                     <div class="product_pric">
-                        <span>￥</span>
+                        <span>￥</span>  
                         <span class="rel_price">{{goodsData[0].product_price}}</span>
                         <span>.00</span>
                     </div>

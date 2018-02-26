@@ -41,7 +41,8 @@ module.exports = {
     },
     devServer: {
         historyApiFallback: true,
-        noInfo: true
+        noInfo: true,
+        hot: true
     },
     performance: {
         hints: false
@@ -66,6 +67,7 @@ if (process.env.NODE_ENV === 'production') {
         }),
         new webpack.LoaderOptionsPlugin({
             minimize: true
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin(), //热加载
     ])
 }

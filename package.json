@@ -1,11 +1,11 @@
 {
   "name": "vue-taobao",
-  "description": "A Vue.js project",
+  "description": "my-signt",
   "version": "1.0.0",
-  "author": "huangche",
+  "author": "cjy",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --port 8081",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --port 9000",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
@@ -36,6 +36,8 @@
     "vue-template-compiler": "^2.2.1",
     "vuex": "^2.2.1",
     "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0"
+    "webpack-dev-middleware": "^2.0.6",
+    "webpack-dev-server": "^2.2.0",
+    "webpack-hot-middleware": "^2.21.0"
   }
 }
