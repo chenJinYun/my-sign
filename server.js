@@ -1,13 +1,13 @@
 // 服务器
 const express = require('express');
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser'); //请求体解析
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const mysql = require('mysql');
 const server = express();
 server.use(bodyParser.urlencoded({ extended: false }));
 //the cores config
-server.all('*', function(req, res, next) {
+server.all('*', function(req, res, next) { //全部请求跨域的配置
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
     res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
@@ -25,6 +25,7 @@ server.listen(3333, () => {
 });
 
 //deal (cookie,session)
+// 设置cookie的有效时间
 (() => {
     server.use(cookieParser());
     let keyArr = [];
@@ -32,12 +33,12 @@ server.listen(3333, () => {
         keyArr[i] = "xsa_" + Math.random() * 100 + i;
     }
     server.use(cookieSession({
-        name: "hc",
+        name: "cjy",
         keys: keyArr,
-        maxAge: 30 * 60 * 1000
+        maxAge: 30 * 60 * 1000 //30分钟
     }))
 })();
 
 
 //deal router
-server.use('/', require('./route/index.js')());
+server.use('/', require('./route/index.js')()); //处理路由

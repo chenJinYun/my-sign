@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
 const common = require('../libs/common');
+// 创建连接池
 const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
@@ -10,8 +11,8 @@ const db = mysql.createPool({
 module.exports = () => {
     const route = express.Router();
     const getHomeStr = `SELECT product_id,product_name,product_price,product_img_url,product_uprice FROM product`;
-    const getCateNames = `SELECT * FROM category ORDER BY category_id desc`;
-    //get homePage datas
+    const getCateNames = `SELECT * FROM category ORDER BY category_id desc`;//以降序查询分类
+    // 获取首页的数据
     route.get('/home', (req, res) => {
         getHomeDatas(getHomeStr, res);
     });
@@ -31,6 +32,7 @@ module.exports = () => {
         });
     }
 
+    // 获取分类名字
     route.get('/category', (req, res) => {
         getCateNamesDatas(getCateNames, res);
     });
@@ -49,6 +51,8 @@ module.exports = () => {
             }
         });
     };
+
+    // 获取分类对应的物品
     route.get('/categorygoods', (req, res) => {
         let mId = req.query.mId;
         const sql = `select * from product,category where product.category_id=category.category_id and category.category_id='${mId}'`;
@@ -69,6 +73,8 @@ module.exports = () => {
             }
         });
     }
+
+    // 获取物品的图片
     route.get('/detail', (req, res) => {
         let produId = req.query.mId;
         const imagesStr = `select image_url from product_image where product_id='${produId}'`;
@@ -91,8 +97,9 @@ module.exports = () => {
                 });
             }
         });
-
     });
+
+    // 获取购物车的数据
     route.get('/cart', (req, res) => {
         const cartStr = "SELECT cart_id,user.user_id,product.product_id,product_name,product_uprice,product_img_url,goods_num,product_num,shop_name FROM product,user,goods_cart,shop where product.product_id=goods_cart.product_id and user.user_id=goods_cart.user_id and shop.shop_id = product.shop_id";
         db.query(cartStr, (err, data) => {
@@ -109,6 +116,7 @@ module.exports = () => {
         });
     })
 
+    // 查询（根据热度，价格，关键字）
     route.get('/search', (req, res) => {
         let keyWord = req.query.kw;
         let hot = req.query.hot;
@@ -131,9 +139,7 @@ module.exports = () => {
         }
 
     });
-    /**
-        get search datas
-    */
+    // 获取查询数据
     function getSearchDatas(keywordStr, res) {
         db.query(keywordStr, (err, data) => {
             if (err) {
@@ -148,11 +154,9 @@ module.exports = () => {
             }
         });
     }
-    /*
-     *注册
-     */
-    route.post('/reg', (req, res) => {
 
+    // 注册
+    route.post('/reg', (req, res) => {
         let mObj = {};
         for (let obj in req.body) {
             mObj = JSON.parse(obj);
@@ -163,9 +167,7 @@ module.exports = () => {
         const insUserInfo = `INSERT INTO user(user_name,login_password,user_number) VALUES('${regName}','${regPasswd}','${regName}')`;
         delReg(insUserInfo, res);
     });
-    /*
-     *注册的方法
-     */
+    // 注册的方法
     function delReg(insUserInfo, res) {
         db.query(insUserInfo, (err) => {
             if (err) {
@@ -176,9 +178,9 @@ module.exports = () => {
             }
         })
     };
+
     // 登录
     route.post('/login', (req, res) => {
-
         let mObj = {};
         for (let obj in req.body) {
             mObj = JSON.parse(obj);
@@ -210,8 +212,9 @@ module.exports = () => {
                 }
             }
         });
-
     });
+
+    // 获取用户信息
     route.get('/userinfo', (req, res) => {
         let uId = req.query.uId;
         const getU = `SELECT user_name,user_number FROM user where user_id='${uId}'`;

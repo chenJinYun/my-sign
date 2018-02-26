@@ -64,7 +64,7 @@ node server.js
 ├── index.html         		// 项目入口文件
 ├── package.json       		// 项目配置文件
 ├── src                		// 生产目录
-│   ├── assets         		// css js 和图片资源
+│   ├── assets         		// css 和图片资源
 │   ├── components     		// 各种Vue组件
 │   ├── store          		// vuex状态管理器
 │   ├── App.vue        		// 项目中全局Vue

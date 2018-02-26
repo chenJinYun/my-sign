@@ -1,16 +1,17 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import routes from './router.config'
+import VueRouter from 'vue-router' //路由
+import routes from './router.config' // 路由路径
 import Less from 'Less'
-import axios from 'axios'
-import store from './store/'
-import VueLazyload from 'vue-lazyload'
+import axios from 'axios' // 请求
+import store from './store/' // Vuex
+import VueLazyload from 'vue-lazyload' //懒加载
 import App from './App.vue'
-import Loading from './components/loading'
+import Loading from './components/loading' //loding组件
 require('./assets/css/base.css'); //全局引入
 Vue.use(Less);
 Vue.use(VueRouter);
 Vue.use(Loading);
+// 懒加载插件
 Vue.use(VueLazyload, {
     preLoad: 1.3,
     error: require('./assets/images/err.png'),
@@ -22,8 +23,8 @@ const router = new VueRouter({
     mode: 'history',
     scorllBehavior: () => ({
         y: 0
-
     }),
+    linkActiveClass: 'active',
     routes
 });
 //axios的一些配置，比如发送请求显示loading，请求回来loading消失之类的
@@ -40,9 +41,12 @@ axios.interceptors.response.use(function(response) { //配置请求回来的信�
     return response;
 }, function(error) {
     return Promise.reject(error);
-});
-axios.defaults.baseURL = 'http://localhost:3333/';
+    });
+// 基本路径
+axios.defaults.baseURL = 'http://localhost:3333/'; 
+// 请求头
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+// 把axios加到vue的$http原型
 Vue.prototype.$http = axios;
 /*axios.defaults.baseURL = (process.env.NODE_ENV !=='production' ? config.dev.httpUrl:config.build.httpUrl);
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';*/
