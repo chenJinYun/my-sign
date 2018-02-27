@@ -51,8 +51,8 @@
 						if(_this.userInfo.status == 1){
 							//LOGIN success
 							window.sessionStorage.userInfo = JSON.stringify(_this.userInfo);
-							console.log(_this.$store);
-							_this.$store.dispatch('setUserInfo', userInfo);
+							// console.log(_this.$store);
+							_this.$store.dispatch('setUserInfo', _this.userInfo);
                         let redirect = decodeURIComponent(_this.$route.query.redirect || '/');
                         _this.$router.push({
                             path: redirect
