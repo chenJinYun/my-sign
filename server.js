@@ -42,3 +42,5 @@ server.listen(3333, () => {
 
 //deal router
 server.use('/', require('./route/index.js')()); //处理路由
+
+// server.use(express.static('public'));

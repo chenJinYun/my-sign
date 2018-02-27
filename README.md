@@ -63,6 +63,7 @@ node server.js
 ├── webpack.config.js  		// webpack配置文件
 ├── index.html         		// 项目入口文件
 ├── package.json       		// 项目配置文件
+├── public       		// 需要请求的服务器图片
 ├── src                		// 生产目录
 │   ├── assets         		// css 和图片资源
 │   ├── components     		// 各种Vue组件

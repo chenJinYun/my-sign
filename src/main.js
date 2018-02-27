@@ -13,22 +13,21 @@ Vue.use(VueRouter);
 Vue.use(Loading);
 // 懒加载插件
 Vue.use(VueLazyload, {
-    preLoad: 1.3,
-    error: require('./assets/images/err.png'),
-    loading: require('./assets/images/loading.gif'),
-    attempt: 1,
-    listenEvents: ['scroll']
+    preLoad: 1.3,// // 1.3的距离是 当前dom距离页面底部的高度比例时就开始加载图片了
+    error: require('./assets/images/err.png'), // error显示内容
+    loading: require('./assets/images/loading.gif'), // loading状态显示内容
+    attempt: 1, // 图片加载失败，最多重试的次数
+    listenEvents: ['scroll'] // 事件
 });
 const router = new VueRouter({
     mode: 'history',
     scorllBehavior: () => ({
-        y: 0
+        y: 0 // 路由跳转y轴下拉的位置
     }),
     linkActiveClass: 'active',
     routes
 });
 //axios的一些配置，比如发送请求显示loading，请求回来loading消失之类的
-//
 axios.interceptors.request.use(function(config) { //配置发送请求的信息
     store.dispatch('showLoading');
     return config;
