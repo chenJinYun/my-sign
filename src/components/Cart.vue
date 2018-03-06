@@ -10,7 +10,6 @@
 		</div>
 
 
-		<!-- <CartMainView></CartMainView> -->
         	<main class="cart_box">
 		    <div class="cart_tip clearfix">
 		        <span>登录后可同步电脑与手机购物车中的商品</span>
@@ -61,7 +60,7 @@
 		                <div class="cart_del clearfix">
 		                    <div class="del_top">
 		                    </div>
-		                    <div class="del_bottom">
+		                    <div class="del_bottom" @click="deleteGoods(item)">
 		                    </div>
 		                </div>
 		            </div>
@@ -109,7 +108,7 @@
 		        <div class="del_cancel">
 		            取消
 		        </div>
-		        <div class="del_ok">
+		        <div class="del_ok" @click="sureDelete">
 		            确定
 		        </div>
 		    </div>
@@ -122,14 +121,15 @@
      data () {
          return  {
              cartDatas:[],
+             goods: {}
          }
      },
  	mounted(){
  		this.check();
         this.animatDelBox();
         this.getCartDatas()
-     },
-     methods: {
+    },
+    methods: {
        check() {
          var cartBoxs = document.getElementsByClassName("check_box");
          for (var i = 0; i < cartBoxs.length; i++) {
@@ -179,15 +179,26 @@
              }
          };
       },
-
-      	getCartDatas(){
+        // 获取购物车的数据
+      getCartDatas(){ 
   	    	let _this = this;
   	    	_this.$http.get('/cart').then((res)=>{
   	    		_this.cartDatas = res.data;
   	    	},(err)=>{
   	    		console.log(err);
   	    	})
-  	    }
+      },
+     deleteGoods (item) {
+         document.getElementsByClassName('pop')[0].style.display = 'inline-block'
+         this.$set(this.goods, 'data', item)
+     },
+     //   删除物品
+     sureDelete() {
+         let cart_id = this.goods.data.cart_id
+         this.$http.post('/cart', {cart_id: cart_id}).then(res => {
+             this.cartDatas = res.data;
+         })
+      }
     }
  }
 </script>

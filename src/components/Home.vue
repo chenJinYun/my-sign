@@ -103,7 +103,7 @@
                {
                    ols[i].className = "";
                }
-               console.log("最初", square);
+            //    console.log("最初", square);
                ols[square].className = "now"; // 留下当前的
            }, 3000);
 
@@ -181,7 +181,7 @@
                {
                    ols[i].className = "";
                }
-               console.log("最初", square);
+            //    console.log("最初", square);
                ols[square].className = "now"; // 留下当前的
                addTransition();
                setTransfrom(-indexx * width);

@@ -102,6 +102,9 @@ module.exports = () => {
     // 获取购物车的数据
     route.get('/cart', (req, res) => {
         const cartStr = "SELECT cart_id,user.user_id,product.product_id,product_name,product_uprice,product_img_url,goods_num,product_num,shop_name FROM product,user,goods_cart,shop where product.product_id=goods_cart.product_id and user.user_id=goods_cart.user_id and shop.shop_id = product.shop_id";
+        getCartData(cartStr, res)
+    })
+    function getCartData(cartStr, res) {
         db.query(cartStr, (err, data) => {
             if (err) {
                 console.log(err);
@@ -114,8 +117,29 @@ module.exports = () => {
                 }
             }
         });
+    }
+    // 删除购物车数据
+    route.post('/cart', (req, res) => {
+        let mObj = {};
+        for (let obj in req.body) {
+            mObj = JSON.parse(obj);
+        }
+        let id = mObj.cart_id
+        const delcartStr = `DELETE FROM goods_cart WHERE cart_id = ${id}`;
+        db.query(delcartStr, (err, data) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('database err').end();
+            } else {
+                if (data.length == 0) {
+                    res.status(500).send('no datas').end();
+                } else {
+                const cartStr = "SELECT cart_id,user.user_id,product.product_id,product_name,product_uprice,product_img_url,goods_num,product_num,shop_name FROM product,user,goods_cart,shop where product.product_id=goods_cart.product_id and user.user_id=goods_cart.user_id and shop.shop_id = product.shop_id";
+                getCartData(cartStr,res)
+                }
+            }
+        });
     })
-
     // 查询（根据热度，价格，关键字）
     route.get('/search', (req, res) => {
         let keyWord = req.query.kw;
