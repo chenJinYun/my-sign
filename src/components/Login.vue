@@ -32,6 +32,9 @@
 				userInfo:{}
 			}
 		},
+		mounted () {
+		   this.$store.dispatch('hideNav')
+		},
 		methods:{
 			goLogin(){
 				let _this = this;

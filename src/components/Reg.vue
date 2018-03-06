@@ -32,6 +32,9 @@
 				regInfo:{}
 			}
 		},
+		mounted () {
+		   this.$store.dispatch('hideNav')
+		},
 		methods:{
 			goSearch(){
 				let _this = this;

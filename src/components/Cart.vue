@@ -11,16 +11,14 @@
 
 
         	<main class="cart_box">
-		    <div class="cart_tip clearfix">
+		    <div class="cart_tip clearfix" v-if="!useInfo">
 		        <span>登录后可同步电脑与手机购物车中的商品</span>
-		        <a href="#" class="login">登录</a>
+		        <a href="/login" class="login">登录</a>
 		    </div>
 		    <div class="cart_content clearfix" v-for="(item,idx) in cartDatas" :key="idx">
 		        <div class="cart_shop clearfix">
 		            <div class="cart_check_box">
-		                <div class="check_box">
-
-		                </div>
+		                <input type="checkbox" class="check_box" name="chk" @click="someone(idx)"/>
 		            </div>
 		            <div class="shop_info clearfix">
 		                <img src="../assets/images/buy-logo.png" alt="" class="shop_icon">
@@ -32,9 +30,7 @@
 		        </div>
 		        <div class="cart_item">
 		            <div class="cart_item_box">
-		                <div class="check_box">
-
-		                </div>
+		                <input type="checkbox" class="check_box" name="chk" />
 		            </div>
 		            <div class="cart_detial_box clearfix">
 		                <a href="#" class="cart_product_link">
@@ -50,7 +46,7 @@
 		                    <span class="my_color">颜色:AT800/16</span>
 		                </div>
 		                <div class="cart_product_sell">
-		                    <span class="product_money">￥<strong class="real_money">{{item.product_uprice}}</strong>.00</span>
+		                    <span class="product_money">￥<strong class="real_money">{{item.product_uprice}}</strong></span>
 		                    <div class="cart_add clearfix">
 		                        <span class="my_add" @click="addGoods(idx)">+</span>
 		                        <input type="tel" class="my_count" :value="item.goods_num" readonly>
@@ -73,28 +69,26 @@
         <div class="cart_fo">
 		 <footer class="cart_footer">
 		    <div class="all_check_box">
-		        <div class="check_box">
-
-		        </div>
+                <input type="checkbox" class="check_box" id="chkAll" @click="checkAll" />
 		        <span>全选</span>
 		    </div>
 		    <div class="count_money_box">
 		        <div class="heji">
 		            <strong>合计:</strong>
 		            <strong>￥</strong>
-		            <strong>537.80</strong>
+		            <strong>{{total}}</strong>
 		        </div>
 		        <div class="total_money clearfix">
 		            <span>总额:</span>
 		            <i>￥</i>
-		            <span>537.80</span>
+		            <span>{{total}}</span>
 		            <span>立减:</span>
 		            <i>￥</i>
 		            <span>0.00</span>
 		        </div>>
-		            <a href="#" class="go_pay">
-		                <span>去计算(1)</span>
-		            </a>
+		            <span class="go_pay" @click="goPay()">
+		                <span>去结算(1)</span>
+		            </span>
 		    </div>
 		 </footer>
 	    </div>
@@ -121,16 +115,23 @@
      data () {
          return  {
              cartDatas:[],
-             goods: {}
+             goods: {},
+             total: 0.00
          }
      },
  	mounted(){
  		this.check();
         this.animatDelBox();
         this.getCartDatas()
+        this.$store.dispatch('hideNav')
     },
-    methods: {
-       check() {
+    computed: {
+        'useInfo'() {
+           return !!window.sessionStorage.userInfo
+        }
+    },
+    methods: {      
+     check() {
          var cartBoxs = document.getElementsByClassName("check_box");
          for (var i = 0; i < cartBoxs.length; i++) {
              cartBoxs[i].onclick = function() {
@@ -187,7 +188,7 @@
   	    		console.log(err);
   	    	})
       },
-     deleteGoods (item) {
+      deleteGoods (item) {
          document.getElementsByClassName('pop')[0].style.display = 'inline-block'
          this.$set(this.goods, 'data', item)
      },
@@ -197,15 +198,41 @@
          this.$http.post('/cart', {cart_id: cart_id}).then(res => {
              this.cartDatas = res.data;
          })
-    },
-    // 对购物车的增加和减少
-    addGoods (index) {
+     },
+      // 对购物车的增加 
+      addGoods (index) {
         this.cartDatas[index].goods_num = this.cartDatas[index].goods_num + 1
-    },
-    decreaseGoods(index) {
+      },
+     // 对购物车减少操作
+     decreaseGoods(index) {
         this.cartDatas[index].goods_num = this.cartDatas[index].goods_num > 1 ? this.cartDatas[index].goods_num - 1 : this.cartDatas[index].goods_num
+      },
+     // 全选
+     checkAll(){
+      // 全选计算总额
+      this.total = 0
+      document.getElementById("chkAll").checked && this.cartDatas.map(item => {
+          this.total += item.product_uprice
+      })
+      let t=document.getElementsByName("chk");
+      console.log(t)
+      for(var i=0;i<t.length;i++){
+        t[i].checked = true;
+     }
+      },
+      someone (index) {
+       console.log(index)
+     },
+      // 结算之前没有登录需要跳转到登录页面
+      goPay () {
+       if (this.userInfo) {
+           alert(`本次购物的总价钱是${this.total}`)
+       } else {
+           this.$router.push('/login')        
+       }
+      }
     }
- }}
+ }
 </script>
 <style>
 body {

@@ -65,9 +65,7 @@ router.beforeEach((to, from, next) => {
                 query: { redirect: to.fullPath }
             });
         }
-        console.log("================");
     } else {
-        console.log("nnnnnnnnnnnnnnnnnn");
         next();
     }
 });
