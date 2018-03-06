@@ -52,9 +52,9 @@
 		                <div class="cart_product_sell">
 		                    <span class="product_money">￥<strong class="real_money">{{item.product_uprice}}</strong>.00</span>
 		                    <div class="cart_add clearfix">
-		                        <span class="my_add">+</span>
-		                        <input type="tel" class="my_count" :value="item.goods_num">
-		                        <span class="my_jian">-</span>
+		                        <span class="my_add" @click="addGoods(idx)">+</span>
+		                        <input type="tel" class="my_count" :value="item.goods_num" readonly>
+		                        <span class="my_jian" @click="decreaseGoods(idx)">-</span>
 		                    </div>
 		                </div>
 		                <div class="cart_del clearfix">
@@ -143,7 +143,6 @@
              };
          }
        },
-
       animatDelBox() {
          var cart_del = document.getElementsByClassName("cart_del");
          var pop = document.getElementsByClassName("pop")[0];
@@ -198,9 +197,15 @@
          this.$http.post('/cart', {cart_id: cart_id}).then(res => {
              this.cartDatas = res.data;
          })
-      }
+    },
+    // 对购物车的增加和减少
+    addGoods (index) {
+        this.cartDatas[index].goods_num = this.cartDatas[index].goods_num + 1
+    },
+    decreaseGoods(index) {
+        this.cartDatas[index].goods_num = this.cartDatas[index].goods_num > 1 ? this.cartDatas[index].goods_num - 1 : this.cartDatas[index].goods_num
     }
- }
+ }}
 </script>
 <style>
 body {
