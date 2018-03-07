@@ -101,7 +101,8 @@ module.exports = () => {
 
     // 获取购物车的数据
     route.get('/cart', (req, res) => {
-        const cartStr = "SELECT cart_id,user.user_id,product.product_id,product_name,product_uprice,product_img_url,goods_num,product_num,shop_name FROM product,user,goods_cart,shop where product.product_id=goods_cart.product_id and user.user_id=goods_cart.user_id and shop.shop_id = product.shop_id";
+        let user_id = req.query.id
+        const cartStr = `SELECT cart_id,user.user_id,product.product_id,product_name,product_uprice,product_img_url,goods_num,product_num,shop_name FROM product,user,goods_cart,shop where product.product_id=goods_cart.product_id and user.user_id=goods_cart.user_id and shop.shop_id = product.shop_id and goods_cart.user_id=${user_id}`;
         getCartData(cartStr, res)
     })
     function getCartData(cartStr, res) {
@@ -139,6 +140,43 @@ module.exports = () => {
                 }
             }
         });
+    })
+    // 加入购物车
+    route.post('/addCart', (req, res) => {
+        let mObj = {};
+        for (let obj in req.body) {
+            mObj = JSON.parse(obj);
+        }
+        // 查询数据是否存在，进行不同的操作
+        const queryStr = `SELECT * FROM goods_cart where user_id = ${mObj.user_id} and product_id = ${mObj.product_id}`
+        const addStr = `INSERT INTO goods_cart(user_id,product_id,goods_num,created) VALUES (${mObj.user_id}, ${mObj.product_id}, ${mObj.goods_num},${mObj.created});`;
+        const updateStr = `UPDATE goods_cart SET goods_num = (goods_num+1) WHERE user_id = ${mObj.user_id} and product_id = ${mObj.product_id}`;
+        db.query(queryStr, (err, data) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('fail').end();
+            } else {
+                if (data.length) {
+                    db.query(updateStr, (err, data) => {
+                        if (err) {
+                            console.log(err);
+                            res.status(500).send('fail').end();
+                        } else {
+                           res.send(true)
+                        }
+                    });
+                } else {
+                    db.query(addStr, (err, data) => {
+                        if (err) {
+                            console.log(err);
+                            res.status(500).send('fail').end();
+                        } else {
+                           res.send(true)
+                        }
+                    });
+                }
+            } 
+        })
     })
     // 查询（根据热度，价格，关键字）
     route.get('/search', (req, res) => {

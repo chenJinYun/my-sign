@@ -116,7 +116,8 @@
          return  {
              cartDatas:[],
              goods: {},
-             total: 0.00
+             total: 0.00,
+             userInfo: JSON.parse(sessionStorage.getItem('userInfo'))
          }
      },
  	mounted(){
@@ -181,8 +182,9 @@
       },
         // 获取购物车的数据
       getCartDatas(){ 
+            console.log(this.userInfo)
   	    	let _this = this;
-  	    	_this.$http.get('/cart').then((res)=>{
+  	    	this.userInfo && _this.$http.get('/cart', {params: {id: _this.userInfo.user_id}}).then((res)=>{
   	    		_this.cartDatas = res.data;
   	    	},(err)=>{
   	    		console.log(err);
@@ -212,12 +214,12 @@
       // 全选计算总额
       this.total = 0
       document.getElementById("chkAll").checked && this.cartDatas.map(item => {
-          this.total += item.product_uprice
+          this.total += item.product_uprice * item.goods_num
       })
       let t=document.getElementsByName("chk");
       console.log(t)
       for(var i=0;i<t.length;i++){
-        t[i].checked = true;
+        t[i].style.checked = 'checked';
      }
       },
       someone (index) {

@@ -45,23 +45,23 @@
             <div class="m">
                 <ul class="m_box">
                     <li class="m_item">
-                        <a href="" class="m_item_link">
+                        <a href="javascript();" class="m_item_link">
                             <em class="m_item_pic"></em>
                             <span class="m_item_name">卖家</span>
                         </a>
-                        <a href="" class="m_item_link">
+                        <a href="javascript();" class="m_item_link">
                             <em class="m_item_pic two"></em>
                             <span class="m_item_name">关注</span>
                         </a>
-                        <a href="" class="m_item_link">
+                        <a href="/cart" class="m_item_link">
                             <em class="m_item_pic three"></em>
                             <span class="m_item_name">购物车</span>
                         </a>
                     </li>
                 </ul>
                 <div class="btn_box clearfix" >
-                    <a href="#" class="buy_now">加入购物车</a>
-                    <a href="#" class="buybuy">立即购买</a>
+                    <a href="#" class="buy_now" @click="addToCart">加入购物车</a>
+                    <a href="#" class="buybuy" @click="buy">立即购买</a>
                 </div>
             </div>
         </footer>
@@ -76,14 +76,16 @@
                 cateGoodsAllData:[],
                 goodsImages:[],
                 goodsData:[],
+                useInfo: JSON.parse(sessionStorage.getItem('userInfo'))
             }
         },
          created(){
             this.fetchData(this.$route.params.id);
+            this.$store.dispatch('hideNav')
+            console.log()
         },
         watch:{
             $route(to){
-                //console.log(to);
                 var reg=/detail\/\d+/;
                 if(reg.test(to.path)){
                     var categotyId=this.$route.params.id || 0;
@@ -92,21 +94,39 @@
             }
         },
         methods:{
+            // 获取商品数据
             fetchData(id){
                 var _this=this;
-                
                 _this.$http.get('/detail',{
-                    params: {
-                        mId: id
-                    }
+                    params: {mId: id}
                 }).then((res)=>{
-                    console.log(res)
                     _this.goodsImages = res.data[0];
                     _this.goodsData = res.data[1];
-
                 },(err)=>{
                     console.log(err);
                 })
+            },
+            // 加入购物车
+            addToCart () {
+                if (!this.useInfo) {
+                    alert('请先登录！')
+                }
+                this.useInfo && this.$http.post('/addCart', {
+                    cart_id: null,
+                    user_id:this.useInfo.user_id,
+                    product_id: this.goodsData[0].product_id,
+                    goods_num: 1,
+                    created: new Date().getTime()
+                })
+                .then(res => {
+                    console.log(res)
+                    if (res.data) {
+                        alert('添加成功！')
+                    }
+                })
+            },
+            buy () {
+                alert(`总价格为：${this.goodsData[0].product_price}`)
             }
         }
     }
