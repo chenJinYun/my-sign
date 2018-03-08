@@ -111,11 +111,7 @@ module.exports = () => {
                 console.log(err);
                 res.status(500).send('database err').end();
             } else {
-                if (data.length == 0) {
-                    res.status(500).send('no datas').end();
-                } else {
-                    res.send(data);
-                }
+                res.send(data);
             }
         });
     }
@@ -126,6 +122,7 @@ module.exports = () => {
             mObj = JSON.parse(obj);
         }
         let id = mObj.cart_id
+        let user_id = mObj.user_id
         const delcartStr = `DELETE FROM goods_cart WHERE cart_id = ${id}`;
         db.query(delcartStr, (err, data) => {
             if (err) {
@@ -135,7 +132,7 @@ module.exports = () => {
                 if (data.length == 0) {
                     res.status(500).send('no datas').end();
                 } else {
-                const cartStr = "SELECT cart_id,user.user_id,product.product_id,product_name,product_uprice,product_img_url,goods_num,product_num,shop_name FROM product,user,goods_cart,shop where product.product_id=goods_cart.product_id and user.user_id=goods_cart.user_id and shop.shop_id = product.shop_id";
+                const cartStr = `SELECT cart_id,user.user_id,product.product_id,product_name,product_uprice,product_img_url,goods_num,product_num,shop_name FROM product,user,goods_cart,shop where product.product_id=goods_cart.product_id and user.user_id=goods_cart.user_id and shop.shop_id = product.shop_id and goods_cart.user_id=${user_id}`;
                 getCartData(cartStr,res)
                 }
             }

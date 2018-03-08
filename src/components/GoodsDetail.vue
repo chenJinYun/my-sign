@@ -167,15 +167,15 @@ body {
     background-size: 100% 100%;
     transition: all 0ms ease;
     height: 375px;
-    width: 375px;
+    width: 417px;
     transform: translate3d(0px, 0px, 0px);
     z-index: 10;
 }
 
 .banner_box .banner_item .banner_pic {
-    max-width: 100%;
-    max-height: 100%;
-    display: block;
+    min-width: 100%;
+    min-height: 100%;
+    display: inline-block;
     overflow: hidden
 }
 

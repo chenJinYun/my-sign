@@ -182,7 +182,6 @@
       },
         // 获取购物车的数据
       getCartDatas(){ 
-            console.log(this.userInfo)
   	    	let _this = this;
   	    	this.userInfo && _this.$http.get('/cart', {params: {id: _this.userInfo.user_id}}).then((res)=>{
   	    		_this.cartDatas = res.data;
@@ -197,7 +196,7 @@
      //   删除物品
      sureDelete() {
          let cart_id = this.goods.data.cart_id
-         this.$http.post('/cart', {cart_id: cart_id}).then(res => {
+         this.$http.post('/cart', {cart_id: cart_id, user_id: this.userInfo.user_id}).then(res => {
              this.cartDatas = res.data;
          })
      },
