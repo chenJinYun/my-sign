@@ -8,15 +8,16 @@
         <main class="detail_box">
             <section class="banner_box">
                 <ul class="banner_child_box">
+                    <span class="left" @click="redIndex()"><</span>
                     <li class="banner_item" v-for="(item,idx) in goodsImages" :key="idx">
                         <img v-lazy="item.image_url" alt="" class="banner_pic">
                     </li>
-                
+                    <span class="right" @click="addIndex()">></span>
                 </ul>
                 <div class="banner_count">
-                        <em id="slide-nub" class="fz18">1</em>
+                        <em id="slide-nub" class="fz18">{{index}}</em>
                         <em class="nub-bg">/</em>
-                        <em id="slide-sum" class="fz12">5</em>
+                        <em id="slide-sum" class="fz12">{{goodsImages.length}}</em>
                 </div>
 
             </section>
@@ -76,13 +77,14 @@
                 cateGoodsAllData:[],
                 goodsImages:[],
                 goodsData:[],
-                useInfo: JSON.parse(sessionStorage.getItem('userInfo'))
+                useInfo: JSON.parse(sessionStorage.getItem('userInfo')),
+                // 保存当前图片索引
+                index:1
             }
         },
          created(){
             this.fetchData(this.$route.params.id);
             this.$store.dispatch('hideNav')
-            console.log()
         },
         watch:{
             $route(to){
@@ -125,8 +127,43 @@
                     }
                 })
             },
+            // 购买
             buy () {
                 alert(`总价格为：${this.goodsData[0].product_price}`)
+            },
+            // 图片滑动
+            redIndex () {
+                let lis = document.getElementsByClassName('banner_item')
+                console.log(lis)
+                if (this.index === 1) {
+                    this.index = this.goodsImages.length
+                    for(let i = 0 ; i<this.goodsImages.length; i++) {
+                        lis[i].style.zIndex = 0
+                    }
+                    lis[this.index - 1].style.zIndex = 10
+                } else {
+                    this.index = this.index - 1
+                    for(let i = 0 ; i<this.goodsImages.length; i++) {
+                        lis[i].style.zIndex = 0
+                    }
+                    lis[this.index - 1].style.zIndex = 10
+                }
+            },
+            addIndex () {
+                let lis = document.getElementsByClassName('banner_item')                
+                if (this.index === this.goodsImages.length){
+                    this.index = 1
+                     for(let i = 0 ; i<this.goodsImages.length; i++) {
+                        lis[i].style.zIndex = 0
+                    }
+                    lis[this.index - 1].style.zIndex = 10
+                } else {
+                     this.index = this.index + 1
+                    for(let i = 0 ; i<this.goodsImages.length; i++) {
+                        lis[i].style.zIndex = 0
+                    }
+                    lis[this.index - 1].style.zIndex = 10
+                }
             }
         }
     }
@@ -149,7 +186,7 @@ body {
 }
 
 .banner_box .banner_child_box {
-    width: 1000%;
+    width: 100%;
     height: 375px;
     position: relative;
     left: 0;
@@ -158,23 +195,27 @@ body {
 }
 
 .banner_box .banner_item {
-    visibility: visible;
-    float: left;
-    display: -webkit-box;
+    position: absolute;
+    left:0;
+    right:0;
+    display: block;
     -webkit-box-pack: center;
     -webkit-box-align: center;
-    background-color: #fff;
     background-size: 100% 100%;
+    background-color: #fff;
     transition: all 0ms ease;
     height: 375px;
     width: 417px;
     transform: translate3d(0px, 0px, 0px);
+}
+.banner_box .banner_item:nth-of-type(1) {
     z-index: 10;
+
 }
 
 .banner_box .banner_item .banner_pic {
-    min-width: 100%;
-    min-height: 100%;
+    max-width: 110%;
+    max-height: 100%;
     display: inline-block;
     overflow: hidden
 }
@@ -370,6 +411,33 @@ body {
 .btn_box .buybuy {
     float: right;
     background-color: #F23030;
+}
+.left{
+    z-index:100;
+    display: inline-block;
+    width:50px;
+    height:20px;
+    position: absolute;
+    left:-5px;
+    top: 132px;
+    font-size: 40px;
+    color:#3e201e
+}
+.right{
+    z-index:100;
+    display: inline-block;
+    width:50px;
+    height:20px;
+    position: absolute;
+    left: 90%;
+    top: 132px;
+    font-size: 40px;
+    color:#3e201e
+}
+.rocket {
+    display: inline-block;
+    width: 50px;
+    height:20px
 }
 
 </style>
