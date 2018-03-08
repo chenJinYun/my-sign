@@ -53,7 +53,7 @@
 						_this.regInfo = res.data;
 						if(_this.regInfo.status == 1){
 							//reg success, go to this login page
-							window.history.go(-1);
+							this.$router.go(-1)
 						}else{
 							alert('注册失败');
 						}
