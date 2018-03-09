@@ -62,8 +62,8 @@
     export default {
         data(){
             return {
-                homeDatas : [],
-                mainDatas:[]
+                homeDatas : [], //六点场
+                mainDatas:[] // 主要的数据
             }
         },
         mounted(){

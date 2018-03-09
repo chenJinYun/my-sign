@@ -488,12 +488,15 @@ body {
 
 .not_eng_title{
     overflow: hidden;
-    margin-bottom: 5px;
+    text-overflow:ellipsis;
+    display:-webkit-box; 
+    -webkit-box-orient:vertical; 
+    -webkit-line-clamp:2; 
+    font-size: 14px;    
     height: 36px;
     color: #6F7474;
     font-weight: 500;
     font-family: "Microsoft YaHei";
-
 }
 
 .not_eng_text{
