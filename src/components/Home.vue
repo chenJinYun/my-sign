@@ -32,19 +32,18 @@
        methods: {
          // 根据滑动的高度改变搜索栏的颜色
          bindEvent () {
-           var sea = document.getElementById("my_search");
+           var sea = document.getElementById("my_search").getElementsByClassName('search')[0];
            /*banner对象*/
-           var banner = document.getElementById("my_banner");
+           var banner = document.getElementById("my_banner"); 
            /*高度*/
-           var height = banner.offsetHeight;
+           var height = banner.offsetTop;//获取元素距离顶部距离
            window.onscroll = function() {
-               var top = document.body.scrollTop;
+               var top = document.documentElement.scrollTop; //获取超出隐藏的高度
                /*当滚动高度大于banner的高度时候颜色不变*/
                if (top > height) {
-                   sea.style.background = "rgba(201,21,35,0.85)";
+                   sea.style.backgroundColor = "rgba(119,136,153,0.5)";
                } else {
-                   var op = top / height * 0.85;
-                   sea.style.background = "rgba(201,21,35," + op + ")";
+                   sea.style.backgroundColor = "#fff";
                }
            };
          },
@@ -288,7 +287,7 @@ body {
 }
 
 .m_banner ul:first-child li {
-    width: 10%;
+    width: 100%;
     float: left;
 }
 
