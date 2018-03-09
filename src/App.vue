@@ -135,61 +135,6 @@ body {
     font-weight: 400;
 }
 
-
-/*轮播图*/
-
-.m_banner {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-}
-
-.m_banner ul:first-child {
-    width: 1000%;
-    transform: translateX(-10px);
-    -webkit-transform: translateX(-10px);
-}
-
-.m_banner ul:first-child li {
-    width: 10%;
-    float: left;
-}
-
-.m_banner ul:first-child li img {
-    width: 100%;
-    display: block;
-}
-
-
-/*点*/
-
-.m_banner ul:last-child {
-    width: 118px;
-    height: 6px;
-    position: absolute;
-    left: 50%;
-    margin-left: -59px;
-    bottom: 10px;
-}
-
-.m_banner ul:last-child li {
-    width: 6px;
-    height: 6px;
-    border: 1px solid #fff;
-    border-radius: 3px;
-    margin-left: 10px;
-    float: left;
-}
-
-.m_banner ul:last-child li:first-child {
-    margin-left: 0;
-}
-
-.m_banner ul:last-child li.now {
-    background: #fff;
-}
-
-
 /*导航*/
 
 .m_nav {

@@ -2,34 +2,216 @@
 	<div class="home">
 		<div class="m_layout">
             <!-- 头部区 -->
-           <HomeHeaderView></HomeHeaderView>
+           <div class="home_h">
+		     <header class="m_header">
+                <div class="m_header_box" id="my_search">
+                    <a href="#" class="icon_logo"></a>
+                    <form action="#">
+                        <span class="icon_search"></span>
+                        <input type="search" class="search" placeholder="点击搜索" @click="goSearch($event)">
+                    </form>
+                    <router-link to="/login" class="logo_btn">登录</router-link>
+                </div>
+              </header>
+	       </div>
+
             <!-- 轮播图-->
-            <HomeBannerView></HomeBannerView>
+            <div class="home_ban">
+		     <div class="m_banner clearfix" id="my_banner">
+                <ul class="banner_box">
+                    <!-- 图片 -->
+                    <li><img src="../assets/images/l8.jpg" alt="" /></li>
+                    <li><img src="../assets/images/l1.jpg" alt="" /></li>
+                    <li><img src="../assets/images/l2.jpg" alt="" /></li>
+                    <li><img src="../assets/images/l3.jpg" alt="" /></li>
+                    <li><img src="../assets/images/l4.jpg" alt="" /></li>
+                    <li><img src="../assets/images/l5.jpg" alt="" /></li>
+                    <li><img src="../assets/images/l6.jpg" alt="" /></li>
+                    <li><img src="../assets/images/l7.jpg" alt="" /></li>
+                    <li><img src="../assets/images/l8.jpg" alt="" /></li>
+                    <li><img src="../assets/images/l1.jpg" alt="" /></li>
+                </ul>
+                <!-- 小圆点 -->
+                <ul class="point_box">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+              </div>
+	        </div>
+
             <!--导航-->
-            <HomeNavView></HomeNavView>
+            <div class="home_n">
+		     <nav class="m_nav">
+                <ul>
+                    <li class="nav_item">
+                        <a href="#" class="nav_item_link">
+                            <img src="../assets/images/nav0.png" alt="">
+                            <span>京东超市</span>
+                        </a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#" class="nav_item_link">
+                            <img src="../assets/images/nav1.png" alt="">
+                            <span>全球购</span>
+                        </a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#" class="nav_item_link">
+                            <img src="../assets/images/nav2.png" alt="">
+                            <span>服装城</span>
+                        </a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#" class="nav_item_link">
+                            <img src="../assets/images/nav3.png" alt="">
+                            <span>京东生鲜</span>
+                        </a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#" class="nav_item_link">
+                            <img src="../assets/images/nav4.png" alt="">
+                            <span>京东到家</span>
+                        </a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#" class="nav_item_link">
+                            <img src="../assets/images/nav5.png" alt="">
+                            <span>充值中心</span>
+                        </a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#" class="nav_item_link">
+                            <img src="../assets/images/nav6.png" alt="">
+                            <span>惠赚钱</span>
+                        </a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#" class="nav_item_link">
+                            <img src="../assets/images/nav7.png" alt="">
+                            <span>领券</span>
+                        </a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#" class="nav_item_link">
+                            <img src="../assets/images/nav8.png" alt="">
+                            <span>物流查询</span>
+                        </a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="#" class="nav_item_link">
+                            <img src="../assets/images/nav9.png" alt="">
+                            <span>我的关注</span>
+                        </a>
+                    </li>
+                </ul>
+              </nav>
+	        </div>
+
             <!--商品区-->
-            <HomeMainView></HomeMainView>
+            <div class="home_m">
+		      <main class="m_product">
+                <section class="product_box">
+                    <div class="product_top">
+                        <a href="#" class="product_left">
+                            <img src="../assets/images/jd_skill.png" alt="" class="miaosha_icon">
+                            <strong class="dianshu">六点场</strong>
+                            <span class="time">00:21:43</span>
+                        </a>
+                    </div>
+                    <div class="product_content">
+                        <ul>
+                        
+                            <li class="product_skill_item" v-for="(item,idx) in homeDatas" :key="idx">
+                                <router-link :to="'/detail/'+item.product_id" class="product_skill_item_link">
+                                    <img v-lazy="item.product_img_url" alt="" class="product_skill_item_cion lazy-img-fadein">
+                                    <p class="nowprice">
+                                        <i style="text-decoration: none;font-style: normal;font-size: 12px">¥</i>
+                                        <span class="now_price">{{item.product_price}}</span>
+                                    </p>
+                                    <p class="oldprice">
+                                        <i style="text-decoration: none;font-style: normal;font-size: 12px">¥</i>
+                                        <del class="old_price">{{item.product_uprice}}</del>
+                                    </p>
+                                </router-link>
+                            </li>
+                        
+                        </ul>
+                    </div>
+                </section>
+                <div class="left_share_quality_content clearfix">
+                    <div class="share_quality">
+                        <div class="share_quality_top">
+                            <div class="share_title">
+                                <p class="share_text">为你推荐</p>
+                            </div>
+                        </div>
+                        <div class="share_quality_left not_eng_box">
+                            <ul>
+                                <li class="not_eng_item" v-for="(item,idx) in mainDatas" :key="idx">
+                                    <router-link  class="not_eng_link" :to="'/detail/'+item.product_id">
+                                        <img v-lazy="item.product_img_url" alt="" class="not_eng_pic lazy-img-fadein">
+                                        <div class="not_eng_info">
+                                            <p class="not_eng_title">{{item.product_name}}</p>
+                                            <p class="not_eng_text">
+                                                <i style="text-decoration: none;font-style: normal;font-size: 12px">¥</i>
+                                                <span class="more_info_price_txt">{{item.product_price}}</span>
+                                            </p>
+                                        </div>
+                                    </router-link>
+                                </li>
+                        
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+              </main>
+	        </div>
         </div>
-	</div>
+	  </div>
 </template>
  <script>
-    
-    import HomeHeaderView from './HomeHeader.vue';
-    import HomeBannerView from './HomeBanner.vue';
-    import HomeNavView from './HomeNav.vue';
-    import HomeMainView from './HomeMain.vue';
     export default {
-       components:{
-        HomeHeaderView,
-        HomeBannerView,
-        HomeNavView,
-        HomeMainView
+       data () {
+             return {
+                homeDatas : [], //六点场
+                mainDatas:[] // 主要的数据
+            }
        },
        mounted () {
          this.bindEvent();
-         this.scrollPic();
+         
+        this.$nextTick(function () {
+           this.scrollPic();
+        })
+
+        this.getData();
+
        },
        methods: {
+        //    获取商品数据
+         getData(){
+            let _this = this;
+            _this.$http.get('/home').then((res)=>{
+                _this.homeDatas.push(res.data[0]);
+                _this.homeDatas.push(res.data[1]);
+                _this.homeDatas.push(res.data[2]);
+                _this.homeDatas.push(res.data[3]);
+                _this.mainDatas = res.data;
+            },(err)=>{
+                console.log(err);
+            })
+         },
+        //  跳转到搜索页面
+        goSearch(event){
+           this.$router.push('/search');
+           window.event? window.event.returnValue = false : event.preventDefault();
+        },
          // 根据滑动的高度改变搜索栏的颜色
          bindEvent () {
            var sea = document.getElementById("my_search").getElementsByClassName('search')[0];
@@ -51,7 +233,7 @@
             // 轮播图的实现
          scrollPic() {
            var imgBox = document.getElementsByClassName("banner_box")[0];
-           var width = document.getElementById("my_banner").offsetWidth;
+           var width =window.screen.width; //获取屏幕大小
            var pointBox = document.getElementsByClassName("point_box")[0];
            var ols = pointBox.children;
            var indexx = 1;
@@ -282,12 +464,10 @@ body {
 
 .m_banner ul:first-child {
     width: 1000%;
-    transform: translateX(-10px);
-    -webkit-transform: translateX(-10px);
 }
 
 .m_banner ul:first-child li {
-    width: 100%;
+    width: 10%;
     float: left;
 }
 
