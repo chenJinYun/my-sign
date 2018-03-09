@@ -233,6 +233,7 @@
 			this.getUDatas();
 		},
 		methods:{
+            // 获取用户信息
 			getUDatas(){
 				let _this = this;
 				let uObj ={};
@@ -250,6 +251,7 @@
 						console.log(err);
 					});
 				}else{
+                    // 没登录直接跳转到登录页面
 					_this.$router.push({
 						path:'/login',
 					})

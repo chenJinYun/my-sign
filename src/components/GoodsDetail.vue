@@ -214,8 +214,8 @@ body {
 }
 
 .banner_box .banner_item .banner_pic {
-    max-width: 110%;
-    max-height: 100%;
+    max-width: 100%;
+    /* max-height: 100%; */
     display: inline-block;
     overflow: hidden
 }
