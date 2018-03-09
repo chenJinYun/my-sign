@@ -131,36 +131,7 @@
         }
     },
     methods: {      
-     check(index) {
-         var cartBoxs = document.getElementsByClassName('cc');
-         let flag = false
-
-         if (cartBoxs[index].checked) {
-             cartBoxs[index].setAttribute('checked','checked')
-         } else {
-             cartBoxs[index].removeAttribute('checked','')
-         }
-        //  判断是否全选
-        for (var i = 0; i < cartBoxs.length; i++) {
-             if (!cartBoxs[i].checked) {
-                 flag = true
-                 break
-             }
-         }
-        //  设置全选属性
-         if (flag) {
-             document.getElementById("chkAll").removeAttribute('checked','')
-             } else {
-              document.getElementById("chkAll").setAttribute('checked','checked')
-         }
-        //  计算总额
-        this.total = 0
-        for (var i = 0; i < cartBoxs.length; i++) {
-             if (cartBoxs[i].checked) {
-                 this.total +=  this.cartDatas[i].product_uprice * this.cartDatas[i].goods_num
-             }
-         }
-       },
+        // 模态框弹出和收起
       animatDelBox() {
          var cart_del = document.getElementsByClassName("cart_del");
          var pop = document.getElementsByClassName("pop")[0];
@@ -208,7 +179,7 @@
       deleteGoods (item) {
          document.getElementsByClassName('pop')[0].style.display = 'inline-block'
          this.$set(this.goods, 'data', item)
-     },
+      },
      //   删除物品
      sureDelete() {
          let cart_id = this.goods.data.cart_id
@@ -246,6 +217,37 @@
            this.$router.push('/login')        
        }
       }
+    },
+    // 单选反反选
+    check(index) {
+         var cartBoxs = document.getElementsByClassName('cc');
+         let flag = false
+
+         if (cartBoxs[index].checked) {
+             cartBoxs[index].setAttribute('checked','checked')
+         } else {
+             cartBoxs[index].removeAttribute('checked','')
+         }
+        //  判断是否全选
+        for (var i = 0; i < cartBoxs.length; i++) {
+             if (!cartBoxs[i].checked) {
+                 flag = true
+                 break
+             }
+         }
+        //  设置全选属性
+         if (flag) {
+             document.getElementById("chkAll").removeAttribute('checked','')
+             } else {
+              document.getElementById("chkAll").setAttribute('checked','checked')
+         }
+        //  计算总额
+        this.total = 0
+        for (var i = 0; i < cartBoxs.length; i++) {
+             if (cartBoxs[i].checked) {
+                 this.total +=  this.cartDatas[i].product_uprice * this.cartDatas[i].goods_num
+             }
+         }
     }
  }
 </script>
