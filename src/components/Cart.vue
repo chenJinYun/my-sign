@@ -197,18 +197,18 @@
       },
      // 全选
      checkAll(){
-      // 全选计算总额
-      this.total = 0
-      document.getElementById("chkAll").checked && this.cartDatas.map(item => {
-          this.total += item.product_uprice * item.goods_num
-      })
-      document.getElementById("chkAll").checked ? document.getElementById("chkAll").setAttribute('checked','checked') : document.getElementById("chkAll").removeAttribute('checked','') 
-      let t=document.getElementsByClassName('cc');
-      for(var i=0;i<t.length;i++){
-        document.getElementById("chkAll").checked ? t[i].setAttribute('checked','checked') : t[i].removeAttribute('checked', '')
-       }
-       this.count = false
-      },
+        // 全选计算总额
+        this.total = 0
+        document.getElementById("chkAll").checked && this.cartDatas.map(item => {
+            this.total += item.product_uprice * item.goods_num
+        })
+        document.getElementById("chkAll").checked ? document.getElementById("chkAll").setAttribute('checked','checked') : document.getElementById("chkAll").removeAttribute('checked','') 
+        let t=document.getElementsByClassName('cc');
+        for(var i=0;i<t.length;i++){
+          document.getElementById("chkAll").checked ? t[i].setAttribute('checked','checked') : t[i].removeAttribute('checked', '')
+         }
+         this.count = false
+     },
       // 结算之前没有登录需要跳转到登录页面
       goPay () {
        if (this.userInfo) {
@@ -216,8 +216,7 @@
        } else {
            this.$router.push('/login')        
        }
-      }
-    },
+      },
     // 单选反反选
     check(index) {
          var cartBoxs = document.getElementsByClassName('cc');
@@ -249,7 +248,8 @@
              }
          }
     }
- }
+    
+    }}
 </script>
 <style>
 body {
