@@ -18,7 +18,7 @@
 		    <div class="cart_content clearfix" v-for="(item,idx) in cartDatas" :key="idx">
 		        <div class="cart_shop clearfix">
 		            <div class="cart_check_box">
-		                <input type="checkbox" class="check_box" name="chk" @click="someone(idx)"/>
+		                <input type="checkbox" class="check_box cc" name="chk" @click="check(idx)"/>
 		            </div>
 		            <div class="shop_info clearfix">
 		                <img src="../assets/images/buy-logo.png" alt="" class="shop_icon">
@@ -30,7 +30,7 @@
 		        </div>
 		        <div class="cart_item">
 		            <div class="cart_item_box">
-		                <input type="checkbox" class="check_box" name="chk" />
+		                <!-- <input type="checkbox" class="check_box cc" name="chk" /> -->
 		            </div>
 		            <div class="cart_detial_box clearfix">
 		                <a href="#" class="cart_product_link">
@@ -69,7 +69,7 @@
         <div class="cart_fo">
 		 <footer class="cart_footer">
 		    <div class="all_check_box">
-                <input type="checkbox" class="check_box" id="chkAll" @click="checkAll" />
+                <input type="checkbox" id="chkAll" class="check_box" @click="checkAll" />
 		        <span>全选</span>
 		    </div>
 		    <div class="count_money_box">
@@ -121,7 +121,6 @@
          }
      },
  	mounted(){
- 		this.check();
         this.animatDelBox();
         this.getCartDatas()
         this.$store.dispatch('hideNav')
@@ -132,17 +131,34 @@
         }
     },
     methods: {      
-     check() {
-         var cartBoxs = document.getElementsByClassName("check_box");
-         for (var i = 0; i < cartBoxs.length; i++) {
-             cartBoxs[i].onclick = function() {
-                 var hasChecked = this.getAttribute("checked");
-                 if (hasChecked != null) {
-                     this.removeAttribute("checked");
-                 } else {
-                     this.setAttribute("checked", "")
-                 }
-             };
+     check(index) {
+         var cartBoxs = document.getElementsByClassName('cc');
+         let flag = false
+
+         if (cartBoxs[index].checked) {
+             cartBoxs[index].setAttribute('checked','checked')
+         } else {
+             cartBoxs[index].removeAttribute('checked','')
+         }
+        //  判断是否全选
+        for (var i = 0; i < cartBoxs.length; i++) {
+             if (!cartBoxs[i].checked) {
+                 flag = true
+                 break
+             }
+         }
+        //  设置全选属性
+         if (flag) {
+             document.getElementById("chkAll").removeAttribute('checked','')
+             } else {
+              document.getElementById("chkAll").setAttribute('checked','checked')
+         }
+        //  计算总额
+        this.total = 0
+        for (var i = 0; i < cartBoxs.length; i++) {
+             if (cartBoxs[i].checked) {
+                 this.total +=  this.cartDatas[i].product_uprice * this.cartDatas[i].goods_num
+             }
          }
        },
       animatDelBox() {
@@ -215,15 +231,13 @@
       document.getElementById("chkAll").checked && this.cartDatas.map(item => {
           this.total += item.product_uprice * item.goods_num
       })
-      let t=document.getElementsByName("chk");
-      console.log(t)
+      document.getElementById("chkAll").checked ? document.getElementById("chkAll").setAttribute('checked','checked') : document.getElementById("chkAll").removeAttribute('checked','') 
+      let t=document.getElementsByClassName('cc');
       for(var i=0;i<t.length;i++){
-        t[i].style.checked = 'checked';
-     }
+        document.getElementById("chkAll").checked ? t[i].setAttribute('checked','checked') : t[i].removeAttribute('checked', '')
+       }
+       this.count = false
       },
-      someone (index) {
-       console.log(index)
-     },
       // 结算之前没有登录需要跳转到登录页面
       goPay () {
        if (this.userInfo) {
