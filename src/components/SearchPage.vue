@@ -69,14 +69,12 @@
 		},
 		mounted () {
 		   this.$store.dispatch('hideNav')
+		   this.goSearch()
 		},
 		methods:{
 			goSearch(event){
 				let _this = this;
-				if(_this.keyword == ''){
-					alert('请输入商品名称');
-				}else{
-					_this.$http.get('/search',{
+				_this.$http.get('/search',{
 						params:{
 							kw:_this.keyword,
 							hot:'',
@@ -88,17 +86,12 @@
 							console.log(_this.mDatas);
 						},(err)=>{
 							console.log(err);
-						});
-					}
-				
+				});
 				 window.event? window.event.returnValue = false : event.preventDefault();
 			},
 			getbyHot(){
 				let _this = this;
-				if(_this.keyword == ''){
-					alert('请输入商品名称');
-				}else{
-					_this.$http.get('/search',{
+				_this.$http.get('/search',{
 						params:{
 							kw:_this.keyword,
 							hot:'hot',
@@ -110,15 +103,11 @@
 							console.log(_this.mDatas);
 						},(err)=>{
 							console.log(err);
-						});
-					}
+				});
 			},
 			getByPriceUp(){
 				let _this = this;
-				if(_this.keyword == ''){
-					alert('请输入商品名称');
-				}else{
-					_this.$http.get('/search',{
+				_this.$http.get('/search',{
 						params:{
 							kw:_this.keyword,
 							hot:'hot',
@@ -130,15 +119,11 @@
 							console.log(_this.mDatas);
 						},(err)=>{
 							console.log(err);
-						});
-					}
+				});
 			},
 			getByPriceDown(){
 				let _this = this;
-				if(_this.keyword == ''){
-					alert('请输入商品名称');
-				}else{
-					_this.$http.get('/search',{
+				_this.$http.get('/search',{
 						params:{
 							kw:_this.keyword,
 							hot:'hot',
@@ -151,8 +136,7 @@
 						},(err)=>{
 							console.log(err);
 						});
-					}
-			}
+				}
 		}
 	}
 </script>

@@ -182,9 +182,13 @@ module.exports = () => {
         let priceUp = req.query.priceUp;
         let priceDown = req.query.priceDown;
         const keywordStr = `select  *  from product,shop where product.shop_id=shop.shop_id and product.product_name like '%${keyWord}%'`;
+        const keywordStrAll = `select  *  from product,shop where product.shop_id=shop.shop_id`;
         const hotStr = `select  *  from product,shop where product.shop_id=shop.shop_id and product.product_name like '%${keyWord}%' order by product_comment_num desc`;
+        const hotStrAll = `select  *  from product,shop where product.shop_id=shop.shop_id order by product_comment_num desc`;
         const priceUpStr = `select  *  from product,shop where product.shop_id=shop.shop_id and product.product_name like '%${keyWord}%' order by product_uprice asc`;
+        const priceUpStrAll = `select  *  from product,shop where product.shop_id=shop.shop_id order by product_uprice asc`;
         const priceDownStr = `select  *  from product,shop where product.shop_id=shop.shop_id and product.product_name like '%${keyWord}%' order by product_uprice desc`;
+        const priceDownStrAll = `select  *  from product,shop where product.shop_id=shop.shop_id order by product_uprice desc`;
         if (keyWord != '') {
             if (hot != '') {
                 getSearchDatas(hotStr, res);
@@ -195,9 +199,30 @@ module.exports = () => {
             } else {
                 getSearchDatas(keywordStr, res);
             }
+        } else {
+            if (hot != '') {
+                getSearchDatas(hotStrAll, res);
+            } else if (priceUp != '') {
+                getSearchDatas(priceUpStrAll, res);
+            } else if (priceDown != '') {
+                getSearchDatas(priceDownStrAll, res);
+            } else {
+                getAllSearchData(keywordStrAll, res)
+            }
         }
 
     });
+    // 获取全部的数据
+    function getAllSearchData(keywordStrAll,res) {
+        db.query(keywordStrAll, (err, data) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('database err').end();
+            } else{
+                res.send(data);
+            }
+        })
+    }
     // 获取查询数据
     function getSearchDatas(keywordStr, res) {
         db.query(keywordStr, (err, data) => {
