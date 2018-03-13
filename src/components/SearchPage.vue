@@ -110,7 +110,7 @@
 				_this.$http.get('/search',{
 						params:{
 							kw:_this.keyword,
-							hot:'hot',
+							hot:'',
 							priceUp:'priceUp',
 							priceDown:''
 						}
@@ -126,7 +126,7 @@
 				_this.$http.get('/search',{
 						params:{
 							kw:_this.keyword,
-							hot:'hot',
+							hot:'',
 							priceUp:'',
 							priceDown:'priceDown'
 						}
