@@ -1,21 +1,27 @@
 <template>
 	<div id="category">
-		<CategoryHeadView></CategoryHeadView>
+    	<div id="caregoty_head">
+		    <header class="top_bar">
+	        <a onclick="window.history.go(-1)" class="icon_back"></a>
+	        <form action="" class="goods_search">
+	            <input type="search" class="goods_search_content" placeholder="搜索">
+	        </form>
+	        <a href="#" class="icon_menu"></a>
+	      </header>
+	    </div>
 	    <CategoryMainView></CategoryMainView>
 	</div>
 </template>
 <script>
-	import CategoryHeadView from './CategoryHead.vue';
 	import CategoryMainView from './CategoryMain.vue';
 	export default {
 		components:{
-			CategoryHeadView,
 			CategoryMainView
 		},
 		mounted(){
 			this.myMoveScroll();
-        },
-        methods: {
+    },
+    methods: {
           myMoveScroll() {
             var childbox = document.getElementsByClassName("childbox")[0];
             var lis = childbox.children;

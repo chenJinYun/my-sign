@@ -12,7 +12,7 @@
 	       <section class="search_condition">
 	        <ul>
 	            <li>
-	                <span class="all">全部</span>
+	                <span class="all" @click="goSearch">全部</span>
 	                <em class="all_icon"></em>
 	            </li>
 	            <li>
