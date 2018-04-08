@@ -226,7 +226,7 @@ module.exports = () => {
             mObj = JSON.parse(obj);
         }
         let regName = mObj.regName;
-        let regPasswd = mObj.regPasswd;
+        let regPasswd = mObj.regPasswd;99
         regPasswd = common.md5(regPasswd + common.MD5_SUFFXIE);
         const insUserInfo = `INSERT INTO user(user_name,login_password,user_number) VALUES('${regName}','${regPasswd}','${regName}')`;
         delReg(insUserInfo, res);
@@ -251,7 +251,7 @@ module.exports = () => {
             console.log(mObj);
         }
         let username = mObj.loginName;
-        let password = common.md5(mObj.loginPawd + common.MD5_SUFFXIE);;
+        let password = common.md5(mObj.loginPawd + common.MD5_SUFFXIE);
         // console.log(username, mObj.passwd);
         const selectUser = `SELECT * FROM user where user_name='${username}'`;
         db.query(selectUser, (err, data) => {

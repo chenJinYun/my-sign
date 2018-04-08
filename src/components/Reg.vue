@@ -20,16 +20,23 @@
 		        </div>
 		    </div>
 		</main>
+		<show :message='this.message' v-if="this.isShow"></show>
 	</div>
 </template>
 <script>
+import show from './show.vue'
 	export default {
+		components : {
+			show
+		},
 		data(){
 			return{
 				regname:'',
 				regpasswd:'',
 				regpasswd_ag:'',
-				regInfo:{}
+				regInfo:{},
+				isShow: false,
+				message: ''
 			}
 		},
 		mounted () {
@@ -39,11 +46,18 @@
 			goSearch(){
 				let _this = this;
 				if(_this.regname ==''){
-					alert('请输入手机号');
+					this.message = '请输入用户名!'
+					this.isShow = true
+					let setTime = setTimeout(function () {_this.isShow = false},3000)
+
 				}else if(_this.regpasswd == '' || _this.regpasswd_ag == ''){
-					alert('请输入密码');
+					this.message = '请输入密码!'
+						this.isShow = true
+					let setTime = setTimeout(function () {_this.isShow = false},3000)
 				}else if(_this.regpasswd!==_this.regpasswd_ag){
-					alert('两次输入的密码不一致');
+					this.message = '两次输入的密码不一致!'
+						this.isShow = true
+					let setTime = setTimeout(function () {_this.isShow = false},3000)
 				}else{
 					_this.$http.post('/reg',{
 						regName:_this.regname,
@@ -53,12 +67,19 @@
 						_this.regInfo = res.data;
 						if(_this.regInfo.status == 1){
 							//reg success, go to this login page
+								this.message = '注册成功！'
+								this.isShow = true
+					let setTime = setTimeout(function () {_this.isShow = false},3000)
 							this.$router.go(-1)
 						}else{
-							alert('注册失败');
+							this.message = '注册失败！'
+								this.isShow = true
+					let setTime = setTimeout(function () {_this.isShow = false},3000)
 						}
 					}else{
-						alert('出现错误');
+						this.message = '出现错误！'
+							this.isShow = true
+					let setTime = setTimeout(function () {_this.isShow = false},3000)
 					}
 					console.log(res);
 				},(err)=>{
