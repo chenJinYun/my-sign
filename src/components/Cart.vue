@@ -107,17 +107,25 @@
 		        </div>
 		    </div>
 		</div>
+        <show :message='this.message' v-if="this.isShow"></show>
+
 	</div>
   </template>
 
 <script>
+import show from './show.vue'
  export default {
+    components : {
+			show
+		},
      data () {
          return  {
              cartDatas:[],
              goods: {},
              total: 0.00,
-             userInfo: JSON.parse(sessionStorage.getItem('userInfo'))
+             userInfo: JSON.parse(sessionStorage.getItem('userInfo')),
+             isShow: false,
+			 message: ''
          }
      },
  	mounted(){
@@ -211,8 +219,11 @@
      },
       // 结算之前没有登录需要跳转到登录页面
       goPay () {
+          let _this = this
        if (this.userInfo) {
-           alert(`本次购物的总价钱是${this.total}`)
+           this.message = `本次购物的总价钱是${this.total}`
+		   this.isShow = true
+		   let setTime = setTimeout(function () {_this.isShow = false},3000)
        } else {
            this.$router.push('/login')        
        }

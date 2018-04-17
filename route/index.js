@@ -165,13 +165,13 @@ module.exports = () => {
         let hot = req.query.hot;
         let priceUp = req.query.priceUp;
         let priceDown = req.query.priceDown;
-        const keywordStr = `select  *  from product,shop where product.shop_id=shop.shop_id and product.product_name like '%${keyWord}%'`;
+        const keywordStr = `select  *  from product,shop where product.shop_id=shop.shop_id and (product.product_name like '%${keyWord}%' or pinyin(product.product_name) like '%${keyWord}%')`;
         const keywordStrAll = `select  *  from product,shop where product.shop_id=shop.shop_id`;
-        const hotStr = `select  *  from product,shop where product.shop_id=shop.shop_id and product.product_name like '%${keyWord}%' order by product_comment_num desc`;
+        const hotStr = `select  *  from product,shop where product.shop_id=shop.shop_id and (product.product_name like '%${keyWord}%' or pinyin(product.product_name) like '%${keyWord}%') order by product_comment_num desc`;
         const hotStrAll = `select  *  from product,shop where product.shop_id=shop.shop_id order by product_comment_num desc`;
-        const priceUpStr = `select  *  from product,shop where product.shop_id=shop.shop_id and product.product_name like '%${keyWord}%' order by product_uprice asc`;
+        const priceUpStr = `select  *  from product,shop where product.shop_id=shop.shop_id and (product.product_name like '%${keyWord}%' or pinyin(product.product_name) like '%${keyWord}%') order by product_uprice asc`;
         const priceUpStrAll = `select  *  from product,shop where product.shop_id=shop.shop_id order by product_uprice asc`;
-        const priceDownStr = `select  *  from product,shop where product.shop_id=shop.shop_id and product.product_name like '%${keyWord}%' order by product_uprice desc`;
+        const priceDownStr = `select  *  from product,shop where product.shop_id=shop.shop_id and (product.product_name like '%${keyWord}%' or pinyin(product.product_name) like '%${keyWord}%') order by product_uprice desc`;
         const priceDownStrAll = `select  *  from product,shop where product.shop_id=shop.shop_id order by product_uprice desc`;
         if (keyWord != '') {
             if (hot != '') {

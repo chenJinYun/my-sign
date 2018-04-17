@@ -23,6 +23,7 @@
     bottom: 0;
     background: rgba(0, 0, 0, .4);
     padding: 0 5%;
+    z-index:999999
 }
 
 .pop .pop_box {

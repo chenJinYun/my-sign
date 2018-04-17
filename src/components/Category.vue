@@ -4,7 +4,7 @@
 		    <header class="top_bar">
 	        <a onclick="window.history.go(-1)" class="icon_back"></a>
 	        <form action="" class="goods_search">
-	            <input type="search" class="goods_search_content" placeholder="搜索">
+	            <h3>分类</h3>
 	        </form>
 	        <a href="#" class="icon_menu"></a>
 	      </header>
@@ -50,14 +50,14 @@
 </template>
 <script>
 	export default {
-    	data(){
+    	data () {
 	  	return{
 				leftDatas:[],
 				cateGoodsData:[]
 	  	}
   	},
 		mounted(){
-      this.myMoveScroll();
+      // this.myMoveScroll();
       this.getLeftDatas();
 	    this.fetchData(this.$route.params.id);
     },
@@ -71,7 +71,7 @@
 			}
 		},
     methods: {
-      myMoveScroll() {
+      myMoveScroll() {     
             var childbox = document.getElementsByClassName("childbox")[0];
             var lis = childbox.children;
             var parentBox = document.getElementsByClassName("category_left")[0];
@@ -201,11 +201,14 @@
       height: 100%;
       background-color: #fff;
     }
-
+    
     .caregoty_head .top_bar {
       position: fixed;
     }
-
+    .goods_search h3{
+      text-align: center;
+      line-height:44px;
+    }
     .category_content {
       width: 100%;
       height: 100%;

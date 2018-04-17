@@ -2,7 +2,7 @@
 	<div class="my_l">
 		<header class="top_bar">
 		    <a @click="$router.go(-1)" class="icon_back"></a>
-		    <h3 class="cartname">京东登录</h3>
+		    <h3 class="cartname">登录</h3>
 		</header>
 		<main class="user_login_box">
 		    <div class="login_dialog">
@@ -21,15 +21,24 @@
 		        </div>
 		    </div>
 		</main>
+	    <show :message='this.message' v-if="this.isShow"></show>
+
 	</div>
 </template>
 <script>
+import show from './show.vue'
+
 	export default {
+	   components : {
+		  show
+		},
 		data(){
 			return{
 				username:'',
 				password:'',
-				userInfo:{}
+				userInfo:{},
+				isShow: false,
+				message: ''
 			}
 		},
 		mounted () {
@@ -40,9 +49,13 @@
 				let _this = this;
 				
 				if(_this.username ==''){
-					alert('请输入用户名');
+						this.message = '请输入用户名!'
+					this.isShow = true
+					let setTime = setTimeout(function () {_this.isShow = false},3000)
 				}else if(_this.password == ''){
-					alert('请输入密码');
+						this.message = '请输入密码!'
+						this.isShow = true
+					let setTime = setTimeout(function () {_this.isShow = false},3000)
 				}else{
 					_this.$http.post('/login',{
 						loginName:_this.username,
@@ -50,9 +63,13 @@
 					}).then((res)=>{
 						console.log(_this.password);
 					if(res.status == 200){
+						
 						_this.userInfo = res.data;
 						if(_this.userInfo.status == 1){
 							//LOGIN success
+							this.message = '登录成功!'
+						     this.isShow = true
+				        	let setTime = setTimeout(function () {_this.isShow = false},3000)
 							window.sessionStorage.userInfo = JSON.stringify(_this.userInfo);
 							// console.log(_this.$store);
 							_this.$store.dispatch('setUserInfo', _this.userInfo);
@@ -62,10 +79,16 @@
                         });
 							
 						}else{
-							alert(_this.userInfo.msg);
+							// alert(_this.userInfo.msg);
+							this.message = _this.userInfo.msg
+						     this.isShow = true
+				        	let setTime = setTimeout(function () {_this.isShow = false},3000)
 						}
 					}else{
-						alert('请求出现错误');
+						// alert('请求出现错误');
+						this.message = '请求出现错误'
+						     this.isShow = true
+				        	let setTime = setTimeout(function () {_this.isShow = false},3000)
 					}
 						console.log(res);
 					},(err)=>{

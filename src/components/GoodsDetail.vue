@@ -66,12 +66,18 @@
                 </div>
             </div>
         </footer>
+        <show :message='this.message' v-if="this.isShow"></show>
+
 	</div>
   </template>
 
 <script>
+import show from './show.vue'
+
    export default {
-       
+       components : {
+		  show
+		},
         data(){
             return {
                 cateGoodsAllData:[],
@@ -79,7 +85,9 @@
                 goodsData:[],
                 useInfo: JSON.parse(sessionStorage.getItem('userInfo')),
                 // 保存当前图片索引
-                index:1
+                index:1,
+                isShow: false,
+				message: ''
             }
         },
          created(){
@@ -110,8 +118,11 @@
             },
             // 加入购物车
             addToCart () {
+                let _this = this
                 if (!this.useInfo) {
-                    alert('请先登录！')
+                     this.message = '请先登录!'
+					this.isShow = true
+					let setTime = setTimeout(function () {_this.isShow = false},3000)
                 }
                 this.useInfo && this.$http.post('/addCart', {
                     cart_id: null,
@@ -123,13 +134,18 @@
                 .then(res => {
                     console.log(res)
                     if (res.data) {
-                        alert('添加成功！')
+                        this.message = '添加成功！'
+					this.isShow = true
+					let setTime = setTimeout(function () {_this.isShow = false},3000)
                     }
                 })
             },
             // 购买
             buy () {
-                alert(`总价格为：${this.goodsData[0].product_price}`)
+                let _this = this                
+                   this.message = `总价格为：${this.goodsData[0].product_price}元`
+					this.isShow = true
+					let setTime = setTimeout(function () {_this.isShow = false},3000)
             },
             // 图片滑动
             redIndex () {
