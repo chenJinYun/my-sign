@@ -57,7 +57,7 @@
 	  	}
   	},
 		mounted(){
-      // this.myMoveScroll();
+      this.myMoveScroll();
       this.getLeftDatas();
 	    this.fetchData(this.$route.params.id);
     },
@@ -85,7 +85,7 @@
             var moveY = 0;
             var currentY = 0;
             //上下滑动距离的限制
-            var upDownOffset = 150;
+            var upDownOffset = 0;
             var startTime = 0;
             var endTime = 0;
          
@@ -116,12 +116,12 @@
                var event = e || window.event;
                event.preventDefault();
                endY = event.touches[0].clientY;
-               moveY = startY - endY;
-               //上下滑动的范围
-               if ((currentY - moveY) < upDownOffset && (currentY - moveY) > (parentHeight - childHeight - upDownOffset)) {
-                   removeTrans();
-                   setTransfrom(currentY - moveY);
-                 }
+               moveY = 0;
+              //  //上下滑动的范围
+              //  if ((currentY - moveY) < upDownOffset && (currentY - moveY) > (parentHeight - childHeight - upDownOffset)) {
+              //      removeTrans();
+              //      setTransfrom(currentY - moveY);
+              //    }
             }, false);
          
             childbox.addEventListener("touchend", function(e) { 
@@ -155,16 +155,16 @@
                     /*
                     移动的距离
                      */
-                    var translateY = li.index * 50;
-                    if (translateY < childHeight - parentHeight) {
-                        addTrans();
-                        setTransfrom(-translateY);
-                        currentY = -translateY;
-                    } else {
-                        addTrans();
-                        setTransfrom(parentHeight - childHeight);
-                        currentY = parentHeight - childHeight;
-                    }
+                    // var translateY = li.index * 50;
+                    // if (translateY < childHeight - parentHeight) {
+                    //     addTrans();
+                    //     setTransfrom(-translateY);
+                    //     currentY = -translateY;
+                    // } else {
+                    //     addTrans();
+                    //     setTransfrom(parentHeight - childHeight);
+                    //     currentY = parentHeight - childHeight;
+                    // }
 
              }
             }, false);
