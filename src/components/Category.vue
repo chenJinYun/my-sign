@@ -59,7 +59,8 @@
 		mounted(){
       this.myMoveScroll();
       this.getLeftDatas();
-	    this.fetchData(this.$route.params.id);
+      this.fetchData(this.$route.params.id);
+      this.$nextTick(function(){document.getElementsByClassName("childbox")[0].getElementsByTagName('li')[0].className = 'now'})
     },
     watch:{
 			$route(to){

@@ -9,7 +9,7 @@
                 </a>
             </router-link>
 
-            <router-link tag="li" to="/catgory" class="tabItem">
+            <router-link tag="li" to="/catgory/34" class="tabItem">
                 <a href="javascript:;" class="tab-item-link">
                     <img src="../assets/images/n-catergry.png" alt="" class="tab-item-icon">
                 </a>

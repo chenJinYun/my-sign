@@ -27,6 +27,7 @@ const router = new VueRouter({
     linkActiveClass: 'active',
     routes
 });
+// 请求拦截器
 //axios的一些配置，比如发送请求显示loading，请求回来loading消失之类的
 axios.interceptors.request.use(function(config) { //配置发送请求的信息
     store.dispatch('showLoading');
@@ -35,7 +36,7 @@ axios.interceptors.request.use(function(config) { //配置发送请求的信息
 }, function(error) {
     return Promise.reject(error);
 });
-
+// 响应拦截器
 axios.interceptors.response.use(function(response) { //配置请求回来的信息
     store.dispatch('hideLoading');
     return response;

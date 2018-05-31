@@ -47,15 +47,14 @@ import show from './show.vue'
 		methods:{
 			goLogin(){
 				let _this = this;
-				
 				if(_this.username ==''){
-						this.message = '请输入用户名!'
+					this.message = '请输入用户名!'
 					this.isShow = true
 					let setTime = setTimeout(function () {_this.isShow = false},3000)
 				}else if(_this.password == ''){
 						this.message = '请输入密码!'
 						this.isShow = true
-					let setTime = setTimeout(function () {_this.isShow = false},3000)
+					    let setTime = setTimeout(function () {_this.isShow = false},3000)
 				}else{
 					_this.$http.post('/login',{
 						loginName:_this.username,
@@ -63,34 +62,27 @@ import show from './show.vue'
 					}).then((res)=>{
 						console.log(_this.password);
 					if(res.status == 200){
-						
 						_this.userInfo = res.data;
 						if(_this.userInfo.status == 1){
-							//LOGIN success
 							this.message = '登录成功!'
 						     this.isShow = true
 				        	let setTime = setTimeout(function () {_this.isShow = false},3000)
-							window.sessionStorage.userInfo = JSON.stringify(_this.userInfo);
-							// console.log(_this.$store);
+							window.sessionStorage.userInfo = JSON.stringify(_this.userInfo); //转换成json字符串
 							_this.$store.dispatch('setUserInfo', _this.userInfo);
-                        let redirect = decodeURIComponent(_this.$route.query.redirect || '/');
+                        let redirect = decodeURIComponent(_this.$route.query.redirect || '/'); // 对url进行编码的解码函数
                         _this.$router.push({
                             path: redirect
                         });
-							
 						}else{
-							// alert(_this.userInfo.msg);
 							this.message = _this.userInfo.msg
 						     this.isShow = true
 				        	let setTime = setTimeout(function () {_this.isShow = false},3000)
 						}
 					}else{
-						// alert('请求出现错误');
 						this.message = '请求出现错误'
 						     this.isShow = true
 				        	let setTime = setTimeout(function () {_this.isShow = false},3000)
 					}
-						console.log(res);
 					},(err)=>{
 						console.log(err);
 					});
